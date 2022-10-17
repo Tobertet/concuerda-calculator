@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC, useState } from "react";
+import { Price } from "./components/Price";
+import { Selector } from "./components/Selector";
+import { Group } from "./types";
+import { groups } from "./variables";
 
-function App() {
+export const App: FC = () => {
+  const [ceremonyGroup, setCeremonyGroup] = useState<Group>();
+  const [cocktailGroup, setCocktailGroup] = useState<Group>();
+  const [feastGroup, setFeastGroup] = useState<Group>();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        <Selector
+          label="Ceremonia"
+          onChange={(group) => setCeremonyGroup(group)}
+          options={groups}
+          priceField="ceremonyPrice"
+          value={ceremonyGroup}
+        />
+        <Selector
+          label="Cocktail"
+          onChange={(group) => setCocktailGroup(group)}
+          options={groups}
+          priceField="cocktailPrice"
+          value={cocktailGroup}
+        />
+        <Selector
+          label="Banquete"
+          onChange={(group) => setFeastGroup(group)}
+          options={groups}
+          priceField="feastPrice"
+          value={feastGroup}
+        />
+      </div>
+      <Price
+        ceremonyGroup={ceremonyGroup}
+        cocktailGroup={cocktailGroup}
+        feastGroup={feastGroup}
+      />
     </div>
   );
-}
-
-export default App;
+};
