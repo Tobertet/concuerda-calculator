@@ -2,6 +2,14 @@ import { Discount, Group } from "./types";
 
 export const noGroupLabel = "-- Sin música --";
 
+export const x3ConcuerdaDiscount: Discount = {
+    label: "ceremonia completa Concuerda",
+    percentage: 25,
+};
+export const x2ConcuerdaDiscount: Discount = {
+    label: "pack Concuerda",
+    percentage: 20,
+};
 export const x3SameGroupDiscount: Discount = {
     label: "ceremonia completa con el mismo grupo",
     percentage: 15,
@@ -19,121 +27,111 @@ export const x3DifferentGroupDiscount = {
     percentage: 10,
 };
 
+export const candlesPrice = 600;
+
+export const grandPianoPrice = 600;
+
+export const candlesAndGrandPianoPrice = 1000;
+
+export const flowersPrice = 300;
+
+
 export const groups: Group[] = [
     {
-        name: 'Camerata Concuerda',
-        ceremonyPrice: 2880,
-        cocktailPrice: 0,
-        feastPrice: 0
-    }, {
-        name: 'Coro Concuerda',
-        ceremonyPrice: 2580,
-        cocktailPrice: 0,
-        feastPrice: 0
-    }, {
-        name: 'Camerata & Coro',
-        ceremonyPrice: 3860,
-        cocktailPrice: 0,
-        feastPrice: 0
+        name: 'Piano',
+        ceremonyPrice: 600,
+        cocktailPrice: 900,
+        feastPrice: 1100,
+        canUseGrandPiano: true
     }, {
         name: 'Pop Dúo: Maryna & Guitarra',
-        ceremonyPrice: 0,
-        cocktailPrice: 1900,
-        feastPrice: 2400
-    }, {
-        name: 'Pop Dúo: Cantante & Piano',
-        ceremonyPrice: 0,
-        cocktailPrice: 1900,
-        feastPrice: 2400
-    }, {
-        name: 'Pop Dúo: Cantante & Piano Cola',
-        ceremonyPrice: 0,
-        cocktailPrice: 2300,
-        feastPrice: 2800
-    }, {
-        name: 'Latin Quartet',
-        ceremonyPrice: 2100,
-        cocktailPrice: 2500,
-        feastPrice: 0
-    }, {
-        name: 'Jazz Quartet Vicente Macián',
-        ceremonyPrice: 0,
-        cocktailPrice: 2400,
-        feastPrice: 2800
-    }, {
-        name: 'Jazz Quartet Vicente Macián Piano de Cola',
-        ceremonyPrice: 0,
-        cocktailPrice: 2800,
-        feastPrice: 3200
-    }, {
-        name: '2 Cellos',
-        ceremonyPrice: 1500,
-        cocktailPrice: 1800,
-        feastPrice: 0
-    }, {
-        name: 'Dúo Instrumental',
-        ceremonyPrice: 1450,
-        cocktailPrice: 1750,
-        feastPrice: 0
-    }, {
-        name: 'Dúo Instrumental Piano de Cola',
-        ceremonyPrice: 1850,
-        cocktailPrice: 2150,
-        feastPrice: 0
-    }, {
-        name: 'Concuerda&Co',
-        ceremonyPrice: 1300,
-        cocktailPrice: 1600,
-        feastPrice: 1850
-    }, {
-        name: 'Trio Concuerda',
-        ceremonyPrice: 1800,
-        cocktailPrice: 2400,
-        feastPrice: 3000
-    }, {
-        name: 'Trio Concuerda Infinity',
-        ceremonyPrice: 0,
-        cocktailPrice: 0,
-        feastPrice: 0
-    }, {
-        name: 'Piano',
-        ceremonyPrice: 1200,
-        cocktailPrice: 1500,
-        feastPrice: 1700
-    }, {
-        name: 'Piano de Cola',
-        ceremonyPrice: 1650,
-        cocktailPrice: 1950,
-        feastPrice: 2150
+        ceremonyPrice: 900,
+        cocktailPrice: 1300,
+        feastPrice: 1800,
+        canUseGrandPiano: false
     }, {
         name: 'Soul Quintet: Elvira & Jazz Quartet',
         ceremonyPrice: 0,
-        cocktailPrice: 2900,
-        feastPrice: 3300
+        cocktailPrice: 2300,
+        feastPrice: 2700,
+        canUseGrandPiano: true
     }, {
-        name: 'Soul Quintet: Elvira & Jazz Quartet Piano de Cola',
+        name: 'Trio Concuerda',
+        ceremonyPrice: 1200,
+        cocktailPrice: 1800,
+        feastPrice: 2400,
+        canUseGrandPiano: false
+    }, {
+        name: 'Trio Concuerda Infinity',
         ceremonyPrice: 0,
-        cocktailPrice: 2800,
-        feastPrice: 3200
+        cocktailPrice: 2400,
+        feastPrice: 2850,
+        canUseGrandPiano: false
     }, {
-        name: 'Dúo Lírico: Soprano & Piano',
-        ceremonyPrice: 1300,
-        cocktailPrice: 0,
-        feastPrice: 0
+        name: 'Latin Quartet',
+        ceremonyPrice: 0,
+        cocktailPrice: 1500,
+        feastPrice: 1900,
+        canUseGrandPiano: false
     }, {
-        name: 'Dúo Lírico: Soprano & Piano de Cola',
-        ceremonyPrice: 1700,
+        name: '2Cellos',
+        ceremonyPrice: 900,
+        cocktailPrice: 1200,
+        feastPrice: 1500,
+        canUseGrandPiano: false
+    }, {
+        name: 'Jazz Quartet Vicente Macián',
+        ceremonyPrice: 0,
+        cocktailPrice: 1800,
+        feastPrice: 2200,
+        canUseGrandPiano: true
+    }, {
+        name: 'Pop Dúo: Cantante & Piano',
+        ceremonyPrice: 900,
+        cocktailPrice: 1300,
+        feastPrice: 1800,
+        canUseGrandPiano: true
+    }, {
+        name: 'Camerata Concuerda',
+        ceremonyPrice: 2280,
         cocktailPrice: 0,
-        feastPrice: 0
+        feastPrice: 0,
+        canUseGrandPiano: false
+    }, {
+        name: 'Coro Concuerda',
+        ceremonyPrice: 1980,
+        cocktailPrice: 0,
+        feastPrice: 0,
+        canUseGrandPiano: false
+    }, {
+        name: 'Camerata & Coro',
+        ceremonyPrice: 3260,
+        cocktailPrice: 0,
+        feastPrice: 0,
+        canUseGrandPiano: false
+    }, {
+        name: 'Dúo Instrumental',
+        ceremonyPrice: 850,
+        cocktailPrice: 1150,
+        feastPrice: 1450,
+        canUseGrandPiano: true
     }, {
         name: '80’s Romantic Trio',
-        ceremonyPrice: 2100,
-        cocktailPrice: 2500,
-        feastPrice: 0
+        ceremonyPrice: 0,
+        cocktailPrice: 1500,
+        feastPrice: 1900,
+        canUseGrandPiano: true
     }, {
-        name: '80’s Romantic Trio Piano de Cola',
-        ceremonyPrice: 2500,
-        cocktailPrice: 2900,
-        feastPrice: 0
+        name: 'Concuerda&Co',
+        ceremonyPrice: 700,
+        cocktailPrice: 1000,
+        feastPrice: 1250,
+        canUseGrandPiano: true
+    }, {
+        name: 'Dúo Lírico: Soprano & Piano',
+        ceremonyPrice: 700,
+        cocktailPrice: 0,
+        feastPrice: 0,
+        canUseGrandPiano: true
     },
 ]

@@ -1,35 +1,63 @@
+import { Divider } from "@mui/material";
 import { FC, useEffect, useState } from "react";
 import { getDiscount, getPrice } from "../functions";
-import { Discount, Group } from "../types";
+import { Discount, EventFormData } from "../types";
+
+type Prices = {
+  ceremony: number;
+  cocktail: number;
+  feast: number;
+  subtotal: number;
+  discount?: Discount;
+  total: number;
+};
 
 type Props = {
-  ceremonyGroup: Group | undefined;
-  cocktailGroup: Group | undefined;
-  feastGroup: Group | undefined;
+  ceremonyEventData: EventFormData;
+  cocktailEventData: EventFormData;
+  feastEventData: EventFormData;
 };
 
 export const Price: FC<Props> = ({
-  ceremonyGroup,
-  cocktailGroup,
-  feastGroup,
+  ceremonyEventData,
+  cocktailEventData,
+  feastEventData,
 }) => {
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [discount, setDiscount] = useState<Discount>();
+  const [prices, setPrices] = useState<Prices>({
+    ceremony: 0,
+    cocktail: 0,
+    feast: 0,
+    subtotal: 0,
+    total: 0,
+  });
 
   useEffect(() => {
-    const newDiscount = getDiscount(ceremonyGroup, cocktailGroup, feastGroup);
-
-    setTotalPrice(
-      (getPrice("ceremonyPrice", ceremonyGroup) +
-        getPrice("cocktailPrice", cocktailGroup) +
-        getPrice("feastPrice", feastGroup)) *
-        (newDiscount ? (100 - newDiscount.percentage) / 100 : 1)
+    const ceremony = getPrice("ceremonyPrice", ceremonyEventData);
+    const cocktail = getPrice("cocktailPrice", cocktailEventData);
+    const feast = getPrice("feastPrice", feastEventData);
+    const subtotal = ceremony + cocktail + feast;
+    const discount = getDiscount(
+      ceremonyEventData.group,
+      cocktailEventData.group,
+      feastEventData.group
     );
+    const total = subtotal * (discount ? (100 - discount.percentage) / 100 : 1);
 
-    setDiscount(newDiscount);
-  }, [ceremonyGroup, cocktailGroup, feastGroup]);
+    setPrices({
+      ceremony,
+      cocktail,
+      feast,
+      subtotal,
+      discount,
+      total,
+    });
+  }, [ceremonyEventData, cocktailEventData, feastEventData]);
 
-  if (!ceremonyGroup && !cocktailGroup && !feastGroup)
+  if (
+    !ceremonyEventData.group &&
+    !cocktailEventData.group &&
+    !feastEventData.group
+  )
     return (
       <span>
         Por favor, seleccione las opciones disponibles en los desplegables.
@@ -37,25 +65,73 @@ export const Price: FC<Props> = ({
     );
 
   return (
-    <div>
-      {ceremonyGroup && (
-        <p>Ceremonia: {getPrice("ceremonyPrice", ceremonyGroup)}€</p>
+    <div style={{ background: "white", margin: "5%", padding: "5%" }}>
+      {prices.ceremony > 0 && (
+        <p
+          style={{
+            fontSize: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span>Ceremonia:</span> <span>{prices.ceremony}€</span>
+        </p>
       )}
-      {cocktailGroup && (
-        <p>Cocktail: {getPrice("cocktailPrice", cocktailGroup)}€</p>
+      {prices.cocktail > 0 && (
+        <p
+          style={{
+            fontSize: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span>Cocktail:</span> <span>{prices.cocktail}€</span>
+        </p>
       )}
-      {feastGroup && <p>Banquete: {getPrice("feastPrice", feastGroup)}€</p>}
-      <p>
+      {prices.feast > 0 && (
+        <p
+          style={{
+            fontSize: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span>Banquete:</span> <span>{prices.feast}€</span>
+        </p>
+      )}
+      <Divider />
+      {prices.subtotal > 0 && (
+        <p
+          style={{
+            fontSize: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <span>Subtotal:</span> <span>{prices.subtotal}€</span>
+        </p>
+      )}
+      <p style={{ fontSize: "20px" }}>
         Descuento:{" "}
-        {discount ? (
+        {prices.discount ? (
           <span>
-            <b>{discount.percentage}%</b> por {discount.label}.
+            <b>{prices.discount.percentage}%</b> por {prices.discount.label}.
           </span>
         ) : (
           <span>No disponible.</span>
         )}
       </p>
-      <p>Precio total: {totalPrice}€</p>
+      <Divider />
+      <p
+        style={{
+          fontSize: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <span>Total:</span> <span>{prices.total}€</span>
+      </p>
+      <p style={{ textAlign: "right" }}>Precios sin IVA incluido.</p>
     </div>
   );
 };
