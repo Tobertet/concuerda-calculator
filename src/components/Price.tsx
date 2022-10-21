@@ -58,18 +58,14 @@ export const Price: FC<Props> = ({
     !cocktailEventData.group &&
     !feastEventData.group
   )
-    return (
-      <span>
-        Por favor, seleccione las opciones disponibles en los desplegables.
-      </span>
-    );
+    return <div />;
 
   return (
     <div style={{ background: "white", margin: "5%", padding: "5%" }}>
       {prices.ceremony > 0 && (
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "16px",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -80,7 +76,7 @@ export const Price: FC<Props> = ({
       {prices.cocktail > 0 && (
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "16px",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -91,7 +87,7 @@ export const Price: FC<Props> = ({
       {prices.feast > 0 && (
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "16px",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -103,7 +99,7 @@ export const Price: FC<Props> = ({
       {prices.subtotal > 0 && (
         <p
           style={{
-            fontSize: "20px",
+            fontSize: "16px",
             display: "flex",
             justifyContent: "space-between",
           }}
@@ -111,7 +107,7 @@ export const Price: FC<Props> = ({
           <span>Subtotal:</span> <span>{prices.subtotal}€</span>
         </p>
       )}
-      <p style={{ fontSize: "20px" }}>
+      <p style={{ fontSize: "16px" }}>
         Descuento:{" "}
         {prices.discount ? (
           <span>
@@ -124,7 +120,7 @@ export const Price: FC<Props> = ({
       <Divider />
       <p
         style={{
-          fontSize: "20px",
+          fontSize: "16px",
           display: "flex",
           justifyContent: "space-between",
         }}
