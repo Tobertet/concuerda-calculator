@@ -128,6 +128,7 @@ export const Price: FC<Props> = ({
         <span>Total:</span> <span>{prices.total}€</span>
       </p>
       <p style={{ textAlign: "right" }}>Precios sin IVA incluido.</p>
+      <p style={{ textAlign: "right" }}>Desplazamiento no incluido.</p>
     </div>
   );
 };
