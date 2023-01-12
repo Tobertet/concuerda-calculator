@@ -4,6 +4,7 @@ export type Group = {
     cocktailPrice: number;
     feastPrice: number;
     canUseGrandPiano: boolean;
+    canAddSinger: boolean;
 };
 
 export type Discount = {
@@ -16,4 +17,5 @@ export type EventFormData = {
     withCandles: boolean;
     withGrandPiano: boolean;
     withFlowers: boolean;
+    withSinger: boolean;
 };

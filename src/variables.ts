@@ -3,136 +3,154 @@ import { Discount, Group } from './types';
 export const noGroupLabel = '-- Sin música --';
 
 export const x3ConcuerdaDiscount: Discount = {
-    label: 'ceremonia completa Concuerda',
+    label: 'boda completa Trio Concuerda',
     percentage: 25,
 };
 export const x2ConcuerdaDiscount: Discount = {
-    label: 'pack Concuerda',
+    label: 'pack Trio Concuerda',
     percentage: 20,
 };
 export const x3SameGroupDiscount: Discount = {
-    label: 'ceremonia completa con el mismo grupo',
+    label: 'boda completa con el mismo grupo',
     percentage: 15,
 };
 export const x2SameGroupDiscount = {
-    label: 'pack de 2 con el mismo grupo',
+    label: 'pack con el mismo grupo',
     percentage: 10,
 };
 export const x2DifferentGroupDiscount = {
-    label: 'pack de 2',
+    label: 'pack con diferentes grupos',
     percentage: 5,
 };
 export const x3DifferentGroupDiscount = {
-    label: 'ceremonia completa',
+    label: 'boda completa',
     percentage: 10,
 };
 
 export const candlesPrice = 400;
 
-export const grandPianoPrice = 400;
+export const grandPianoPrice = 500;
 
 export const candlesAndGrandPianoPrice = 700;
 
-export const flowersPrice = 80;
+export const flowersPrice = 70;
+
+export const feastSingerPrice = 500;
+export const ceremonySingerPrice = 400;
+export const cocktailSingerPrice = 450;
 
 export const groups: Group[] = [
     {
         name: 'Piano',
-        ceremonyPrice: 600,
-        cocktailPrice: 900,
-        feastPrice: 1100,
+        ceremonyPrice: 500,
+        cocktailPrice: 700,
+        feastPrice: 800,
         canUseGrandPiano: true,
+        canAddSinger: false,
     },
     {
         name: 'Pop Dúo: Maryna & Guitarra',
-        ceremonyPrice: 900,
-        cocktailPrice: 1300,
-        feastPrice: 1800,
+        ceremonyPrice: 700,
+        cocktailPrice: 900,
+        feastPrice: 1100,
         canUseGrandPiano: false,
+        canAddSinger: false,
     },
     {
         name: 'Soul Quintet: Elvira & Jazz Quartet',
         ceremonyPrice: 0,
-        cocktailPrice: 2300,
-        feastPrice: 2700,
+        cocktailPrice: 2000,
+        feastPrice: 2400,
         canUseGrandPiano: true,
+        canAddSinger: false,
     },
     {
         name: 'Trio Concuerda',
-        ceremonyPrice: 1200,
-        cocktailPrice: 1800,
-        feastPrice: 2400,
+        ceremonyPrice: 1100,
+        cocktailPrice: 1650,
+        feastPrice: 2000,
         canUseGrandPiano: false,
+        canAddSinger: true,
     },
     {
         name: 'Trio Concuerda Infinity',
         ceremonyPrice: 0,
-        cocktailPrice: 2400,
-        feastPrice: 2850,
+        cocktailPrice: 2100,
+        feastPrice: 2500,
         canUseGrandPiano: false,
+        canAddSinger: true,
     },
     {
         name: 'Latin Quartet',
         ceremonyPrice: 0,
-        cocktailPrice: 1500,
-        feastPrice: 1900,
+        cocktailPrice: 1250,
+        feastPrice: 1500,
         canUseGrandPiano: false,
+        canAddSinger: false,
     },
     {
         name: '2Cellos',
-        ceremonyPrice: 900,
-        cocktailPrice: 1200,
-        feastPrice: 1500,
+        ceremonyPrice: 650,
+        cocktailPrice: 850,
+        feastPrice: 1050,
         canUseGrandPiano: false,
+        canAddSinger: false,
     },
     {
         name: 'Jazz Quartet Vicente Macián',
         ceremonyPrice: 0,
-        cocktailPrice: 1800,
-        feastPrice: 2200,
+        cocktailPrice: 1600,
+        feastPrice: 1950,
         canUseGrandPiano: true,
+        canAddSinger: false,
     },
     {
         name: 'Pop Dúo: Cantante & Piano',
-        ceremonyPrice: 900,
-        cocktailPrice: 1300,
-        feastPrice: 1800,
+        ceremonyPrice: 700,
+        cocktailPrice: 900,
+        feastPrice: 1100,
         canUseGrandPiano: true,
+        canAddSinger: false,
     },
     {
         name: 'Camerata Concuerda',
-        ceremonyPrice: 2280,
+        ceremonyPrice: 2000,
         cocktailPrice: 0,
         feastPrice: 0,
         canUseGrandPiano: false,
+        canAddSinger: true,
     },
     {
         name: 'Coro Concuerda',
-        ceremonyPrice: 1980,
+        ceremonyPrice: 1650,
         cocktailPrice: 0,
         feastPrice: 0,
         canUseGrandPiano: false,
+        canAddSinger: false,
     },
     {
         name: 'Camerata & Coro',
-        ceremonyPrice: 3260,
+        ceremonyPrice: 3300,
         cocktailPrice: 0,
         feastPrice: 0,
         canUseGrandPiano: false,
+        canAddSinger: false,
     },
     {
         name: 'Dúo Instrumental',
-        ceremonyPrice: 850,
-        cocktailPrice: 1150,
-        feastPrice: 1450,
+        ceremonyPrice: 600,
+        cocktailPrice: 800,
+        feastPrice: 1000,
         canUseGrandPiano: true,
+        canAddSinger: true,
     },
     {
         name: '80’s Romantic Trio',
         ceremonyPrice: 0,
-        cocktailPrice: 1500,
-        feastPrice: 1900,
+        cocktailPrice: 1200,
+        feastPrice: 1500,
         canUseGrandPiano: true,
+        canAddSinger: true,
     },
     {
         name: 'Concuerda&Co',
@@ -140,12 +158,14 @@ export const groups: Group[] = [
         cocktailPrice: 1000,
         feastPrice: 1250,
         canUseGrandPiano: true,
+        canAddSinger: true,
     },
     {
         name: 'Dúo Lírico: Soprano & Piano',
-        ceremonyPrice: 700,
+        ceremonyPrice: 650,
         cocktailPrice: 0,
         feastPrice: 0,
         canUseGrandPiano: true,
+        canAddSinger: false,
     },
 ];
