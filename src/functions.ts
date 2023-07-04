@@ -52,25 +52,15 @@ export const getDiscount = (
     cocktailGroup: Group | undefined,
     feastGroup: Group | undefined
 ) => {
-    if (
-        ceremonyGroup &&
-        cocktailGroup &&
-        feastGroup &&
-        (ceremonyGroup === cocktailGroup ||
-            ceremonyGroup === feastGroup ||
-            cocktailGroup === feastGroup)
-    )
-        return ['Trio Concuerda', 'Trio Concuerda Infinity'].includes(
-            ceremonyGroup.name
-        ) ||
-            ['Trio Concuerda', 'Trio Concuerda Infinity'].includes(
-                cocktailGroup.name
-            )
-            ? x3ConcuerdaDiscount
-            : x3SameGroupDiscount;
-
     if (ceremonyGroup && cocktailGroup && feastGroup)
-        return x3DifferentGroupDiscount;
+        return (ceremonyGroup.name.match(/Trio Concuerda/)
+            && cocktailGroup.name.match(/Trio Concuerda/)
+            && feastGroup.name.match(/Trio Concuerda/))
+            ? x3ConcuerdaDiscount
+            : (ceremonyGroup === cocktailGroup
+                && ceremonyGroup === feastGroup)
+                ? x3SameGroupDiscount
+                : x3DifferentGroupDiscount;
 
     if (ceremonyGroup && cocktailGroup && ceremonyGroup === cocktailGroup)
         return ['Trio Concuerda', 'Trio Concuerda Infinity'].includes(
