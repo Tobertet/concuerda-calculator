@@ -62,7 +62,7 @@ export const getDiscount = (
          ceremonyGroup.name.match(/Trio Concuerda/)
         ? x3ConcuerdaDiscount
         : (ceremonyGroup.name == cocktailGroup.name && ceremonyGroup.name == feastGroup.name)
-        ? x3SameGroupDiscount)
+        ? x3SameGroupDiscount
         : x3DifferentGroupDiscount
 
     if (ceremonyGroup && cocktailGroup && ceremonyGroup === cocktailGroup)
