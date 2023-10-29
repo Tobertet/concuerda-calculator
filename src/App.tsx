@@ -1,27 +1,22 @@
-import { FC, useState } from 'react';
-import { Price } from './components/Price';
-import { EventFormData } from './types';
-import { groups } from './variables';
+import { FC, useMemo } from 'react';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme';
 import { Separator } from './components/Separator';
-import { EventForm } from './components/EventForm';
-
-const emptyFormData = {
-    group: undefined,
-    withCandles: false,
-    withFlowers: false,
-    withGrandPiano: false,
-    withSinger: false,
-};
+import { useForm } from 'react-hook-form';
+import { Wedding } from './domain/types';
+import { ServiceFormGroup } from './components/ServiceFormGroup';
+import { BANDS } from './domain/constants/bands';
+import { InvoicePrice } from './components/Invoice';
+import { calculateInvoice } from './domain/functions';
+import { PartyFormGroup } from './components/PartyFormGroup';
+import { SOLOISTS } from './domain/constants/soloists';
 
 export const App: FC = () => {
-    const [ceremonyEventData, setCeremonyEventData] =
-        useState<EventFormData>(emptyFormData);
-    const [cocktailEventData, setCocktailEventData] =
-        useState<EventFormData>(emptyFormData);
-    const [feastEventData, setFeastEventData] =
-        useState<EventFormData>(emptyFormData);
+    const { control, watch } = useForm<Wedding>();
+
+    const wedding = watch();
+
+    const invoice = useMemo(() => calculateInvoice(wedding), [wedding]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -35,7 +30,6 @@ export const App: FC = () => {
             >
                 <img
                     alt="Logo de Tu boda con velas"
-                    style={{ padding: '20% 10% 5% 10%' }}
                     src="/concuerda-calculator/logo.png"
                 />
                 <h2
@@ -48,42 +42,31 @@ export const App: FC = () => {
                 >
                     DISEÑA TU PACK
                 </h2>
-                <img
-                    alt="Velas encendidas"
-                    src="/concuerda-calculator/background.jpeg"
+                <ServiceFormGroup
+                    control={control}
+                    bands={BANDS}
+                    name="ceremony"
                 />
                 <Separator />
-                <EventForm
-                    label="Ceremonia"
-                    onChange={(data) => setCeremonyEventData(data)}
-                    options={groups.filter((item) => item.ceremonyPrice > 0)}
-                    data={ceremonyEventData}
+                <ServiceFormGroup
+                    control={control}
+                    bands={BANDS}
+                    name="cocktail"
                 />
                 <Separator />
-                <EventForm
-                    label="Cocktail"
-                    onChange={(data) => setCocktailEventData(data)}
-                    options={groups.filter((item) => item.cocktailPrice > 0)}
-                    data={cocktailEventData}
+                <ServiceFormGroup
+                    control={control}
+                    bands={BANDS}
+                    name="feast"
                 />
                 <Separator />
-                <EventForm
-                    label="Banquete"
-                    onChange={(data) => setFeastEventData(data)}
-                    options={groups.filter((item) => item.feastPrice > 0)}
-                    data={feastEventData}
+                <PartyFormGroup
+                    control={control}
+                    bands={BANDS}
+                    soloists={SOLOISTS.ALL}
                 />
                 <Separator />
-                <Price
-                    ceremonyEventData={ceremonyEventData}
-                    cocktailEventData={cocktailEventData}
-                    feastEventData={feastEventData}
-                />
-                <img
-                    alt="Logo de Tu boda con velas"
-                    style={{ padding: '5% 10% 20% 10%' }}
-                    src="/concuerda-calculator/logo.png"
-                />
+                <InvoicePrice invoice={invoice} />
             </div>
         </ThemeProvider>
     );
