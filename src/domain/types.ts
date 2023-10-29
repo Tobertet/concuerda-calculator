@@ -43,7 +43,7 @@ export type Wedding = {
     [key in Service]:
         | {
               bandName: string;
-              soloistName: string | undefined;
+              soloistName: string[];
               withCandles: boolean;
               withGrandPiano: boolean;
               withFlowers: boolean;

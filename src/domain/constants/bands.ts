@@ -374,5 +374,3 @@ export const BANDS_WITH_10_PERCENT_MORE = BANDS.map((band) => ({
     feastPrice: band.feastPrice ? band.feastPrice * 1.1 : undefined,
     partyPrice: band.partyPrice ? band.partyPrice * 1.1 : undefined,
 }));
-
-console.log(BANDS_WITH_10_PERCENT_MORE);

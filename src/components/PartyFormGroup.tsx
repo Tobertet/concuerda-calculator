@@ -1,5 +1,5 @@
 import { Checkbox, FormControlLabel } from '@mui/material';
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { theme } from '../theme';
 import { Selector } from './Selector';
 import { useController, useForm } from 'react-hook-form';
@@ -62,7 +62,7 @@ export const PartyFormGroup: FC<Props> = ({ bands, control, soloists }) => {
                     />
                 }
                 label="Con velas"
-                style={{ color: 'white', padding: '0 10%' }}
+                style={{ padding: '0 10%' }}
             />
         </>
     );

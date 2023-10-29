@@ -12,3 +12,5 @@ export const DISCOUNTS = {
     DISCOUNT_SAME_SOLOIST_3_SERVICES: 0.75,
     DISCOUNT_SAME_SOLOIST_2_SERVICES: 0.8,
 };
+
+export const NO_GROUP_LABEL = '-- Sin música --';

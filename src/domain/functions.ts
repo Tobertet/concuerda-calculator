@@ -60,9 +60,13 @@ const getDiscountedPriceForSoloist = (
     wedding: Wedding
 ): number | undefined => {
     const services = [
-        wedding.ceremony?.soloistName,
-        wedding.cocktail?.soloistName,
-        wedding.feast?.soloistName,
+        wedding.ceremony?.soloistName.filter(
+            (item) => item === soloistName
+        )?.[0],
+        wedding.cocktail?.soloistName.filter(
+            (item) => item === soloistName
+        )?.[0],
+        wedding.feast?.soloistName.filter((item) => item === soloistName)?.[0],
         wedding.party?.bandName,
     ].filter((item) => item !== undefined) as string[];
 
@@ -297,7 +301,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         (item) =>
             item !== undefined &&
             item.bandName === 'Cantante & Guitarra' &&
-            item.soloistName === undefined
+            item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (guitaristWithoutRequiredSoloist.length) {
@@ -316,7 +320,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         (item) =>
             item !== undefined &&
             item.bandName === 'Cantante & Piano' &&
-            item.soloistName === undefined
+            item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (pianistWithoutRequiredSoloist.length) {
@@ -335,7 +339,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         (item) =>
             item !== undefined &&
             item.bandName === 'Cantante, Guitarra & Piano' &&
-            item.soloistName === undefined
+            item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (pianistAndGuitaristWithoutRequiredSoloist.length) {
@@ -353,7 +357,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         (item) =>
             item !== undefined &&
             item.bandName === 'Pop Band' &&
-            item.soloistName === undefined
+            item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (popBandWithoutRequiredSoloist.length) {
@@ -399,8 +403,6 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         serviceCombination?: ServiceCombination;
     }[];
 
-    console.log(bandsServiceCombinations);
-
     const bandsServiceCombinationsErrors = bandsServiceCombinations.filter(
         (item) => item?.serviceCombination === undefined
     );
@@ -411,6 +413,25 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
             return `El grupo "${item?.band.name}" no puede hacer la combinación de servicios seleccionada.`;
         }),
     ];
+
+    // Add an error if there is a soloist but no band
+    const soloistsWithoutBand = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === undefined &&
+            item.soloistName.length > 0
+    ) as Wedding['ceremony'][];
+
+    if (soloistsWithoutBand.length) {
+        errors = [
+            ...errors,
+            'Es necesario seleccionar un grupo para el solista seleccionado.',
+        ];
+    }
 
     return errors;
 };
@@ -444,13 +465,11 @@ export const calculateInvoice: (wedding: Wedding) => Invoice = (
                     wedding
                 ),
             ];
-            if (weddingService.soloistName) {
+            if (weddingService.soloistName?.length) {
                 invoice[service] = [
                     ...invoice[service]!,
-                    getInvoiceLineForSoloist(
-                        weddingService.soloistName!,
-                        service,
-                        wedding
+                    ...[...weddingService.soloistName].map((soloistName) =>
+                        getInvoiceLineForSoloist(soloistName, service, wedding)
                     ),
                 ];
             }
