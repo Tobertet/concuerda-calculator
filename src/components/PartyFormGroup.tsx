@@ -62,7 +62,7 @@ export const PartyFormGroup: FC<Props> = ({ bands, control, soloists }) => {
                     />
                 }
                 label="Con velas"
-                style={{ padding: '0 10%' }}
+                style={{ color: 'white', padding: '0 10%' }}
             />
         </>
     );
