@@ -4,26 +4,37 @@ import { theme } from '../theme';
 import { Selector } from './Selector';
 import { useController, useForm } from 'react-hook-form';
 import { Band, Service, Soloist, Wedding } from '../domain/types';
-
-const labels: Record<Service, string> = {
-    ceremony: 'Ceremonia',
-    cocktail: 'Cocktail',
-    feast: 'Banquete',
-    party: 'Fiesta',
-};
+import { SERVICE_LABELS } from '../domain/constants/constants';
 
 type Props = {
     bands: Band[];
     soloists: Soloist[];
     control: ReturnType<typeof useForm<Wedding>>['control'];
+    service: Extract<Service, 'pre-party' | 'party'>;
 };
 
-export const PartyFormGroup: FC<Props> = ({ bands, control, soloists }) => {
-    const { field } = useController({ name: 'party', control });
+export const PartyFormGroup: FC<Props> = ({
+    bands,
+    control,
+    soloists,
+    service,
+}) => {
+    const { field } = useController({ name: service, control });
     return (
         <>
+            <h4
+                style={{
+                    color: '#fbf5e1',
+                    textAlign: 'center',
+                    marginTop: 0,
+                    fontSize: '20px',
+                    fontFamily: 'Abhaya Libre',
+                }}
+            >
+                {SERVICE_LABELS[service]}
+            </h4>
             <Selector
-                label={labels['party']}
+                label={SERVICE_LABELS[service]}
                 onChange={(bandName) => {
                     if (!bandName) {
                         field.onChange({

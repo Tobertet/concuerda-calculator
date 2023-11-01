@@ -89,8 +89,16 @@ export const App: FC = () => {
                 />
                 <Separator />
                 <PartyFormGroup
+                    service="pre-party"
                     control={control}
                     bands={BANDS}
+                    soloists={[]}
+                />
+                <Separator />
+                <PartyFormGroup
+                    service="party"
+                    control={control}
+                    bands={[]}
                     soloists={SOLOISTS.ALL}
                 />
                 <Separator />

@@ -1,3 +1,5 @@
+import { Service } from '../types';
+
 export const CANDLES_PRICE = 600;
 export const GRAND_PIANO_PRICE = 800;
 export const CANDLES_AND_GRAND_PIANO_PRICE = 1200;
@@ -14,3 +16,11 @@ export const DISCOUNTS = {
 };
 
 export const NO_GROUP_LABEL = '-- Sin música --';
+
+export const SERVICE_LABELS: Record<Service, string> = {
+    ceremony: 'Ceremonia',
+    cocktail: 'Cocktail',
+    feast: 'Banquete',
+    'pre-party': 'Pre-Fiesta',
+    party: 'Fiesta',
+};

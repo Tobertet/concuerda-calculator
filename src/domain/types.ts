@@ -1,9 +1,9 @@
 export type SoloistInstrument = 'voice' | 'saxo';
 
-export type Service = 'ceremony' | 'cocktail' | 'feast' | 'party';
+export type Service = 'ceremony' | 'cocktail' | 'feast' | 'pre-party' | 'party';
 
 export type ServiceCombination = {
-    [key in Service]: boolean | undefined;
+    [key in Exclude<Service, 'pre-party'>]: boolean | undefined;
 };
 
 export type Band = {

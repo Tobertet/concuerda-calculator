@@ -11,18 +11,12 @@ import { useController, useForm } from 'react-hook-form';
 import { Band, Service, Wedding } from '../domain/types';
 import { SelectorMultiple } from './SelectorMultiple';
 import { SOLOISTS } from '../domain/constants/soloists';
-
-const labels: Record<Service, string> = {
-    ceremony: 'Ceremonia',
-    cocktail: 'Cocktail',
-    feast: 'Banquete',
-    party: 'Fiesta',
-};
+import { SERVICE_LABELS } from '../domain/constants/constants';
 
 type FilterType = 'soloist' | 'band';
 
 type Props = {
-    name: Exclude<Service, 'party'>;
+    name: Exclude<Service, 'party' | 'pre-party'>;
     bands: Band[];
     control: ReturnType<typeof useForm<Wedding>>['control'];
 };
@@ -66,7 +60,7 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
 
     return (
         <>
-            {labels[name] && (
+            {SERVICE_LABELS[name] && (
                 <h4
                     style={{
                         color: '#fbf5e1',
@@ -76,7 +70,7 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                         fontFamily: 'Abhaya Libre',
                     }}
                 >
-                    {labels[name]}
+                    {SERVICE_LABELS[name]}
                 </h4>
             )}
             <div style={{ textAlign: 'center', marginBottom: '24px' }}>

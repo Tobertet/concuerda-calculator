@@ -24,6 +24,7 @@ const getDiscountedPriceForBand = (
         wedding.ceremony?.bandName,
         wedding.cocktail?.bandName,
         wedding.feast?.bandName,
+        wedding['pre-party']?.bandName,
         wedding.party?.bandName,
     ].filter((item) => item !== undefined) as string[];
 
@@ -67,6 +68,7 @@ const getDiscountedPriceForSoloist = (
             (item) => item === soloistName
         )?.[0],
         wedding.feast?.soloistName.filter((item) => item === soloistName)?.[0],
+        wedding['pre-party']?.bandName,
         wedding.party?.bandName,
     ].filter((item) => item !== undefined) as string[];
 
@@ -120,31 +122,29 @@ const getInvoiceLineForBand = (
                     wedding
                 ),
             };
+        case 'pre-party':
+            return {
+                label: band.name,
+                price: band.partyPrice ?? 0,
+                discountedPrice: getDiscountedPriceForBand(
+                    bandName,
+                    band.partyPrice ?? 0,
+                    wedding
+                ),
+            };
         case 'party':
-            if (band === undefined) {
-                const soloist = SOLOISTS_WITH_10_PERCENT_MORE.find(
-                    (s) => s.name === bandName
-                )!;
-                return {
-                    label: soloist.name,
-                    price: soloist.partyPrice ?? 0,
-                    discountedPrice: getDiscountedPriceForSoloist(
-                        bandName,
-                        soloist.partyPrice ?? 0,
-                        wedding
-                    ),
-                };
-            } else {
-                return {
-                    label: band.name,
-                    price: band.partyPrice ?? 0,
-                    discountedPrice: getDiscountedPriceForBand(
-                        bandName,
-                        band.partyPrice ?? 0,
-                        wedding
-                    ),
-                };
-            }
+            const soloist = SOLOISTS_WITH_10_PERCENT_MORE.find(
+                (s) => s.name === bandName
+            )!;
+            return {
+                label: soloist.name,
+                price: soloist.partyPrice ?? 0,
+                discountedPrice: getDiscountedPriceForSoloist(
+                    bandName,
+                    soloist.partyPrice ?? 0,
+                    wedding
+                ),
+            };
     }
 };
 
@@ -267,6 +267,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony?.withGrandPiano,
         wedding.cocktail?.withGrandPiano,
         wedding.feast?.withGrandPiano,
+        wedding['pre-party']?.withGrandPiano,
         wedding.party?.withGrandPiano,
     ].filter((item) => item === true) as boolean[];
 
@@ -282,6 +283,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony?.withCandles,
         wedding.cocktail?.withCandles,
         wedding.feast?.withCandles,
+        wedding['pre-party']?.withCandles,
         wedding.party?.withCandles,
     ].filter((item) => item === true) as boolean[];
 
@@ -380,6 +382,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
                 wedding.ceremony?.bandName,
                 wedding.cocktail?.bandName,
                 wedding.feast?.bandName,
+                wedding['pre-party']?.bandName,
                 wedding.party?.bandName,
             ].includes(band.name) === false
         ) {
@@ -394,14 +397,18 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
                     (wedding.cocktail?.bandName === band.name) &&
                 serviceCombination.feast ===
                     (wedding.feast?.bandName === band.name) &&
-                serviceCombination.party ===
-                    (wedding.party?.bandName === band.name)
+                (serviceCombination.party ===
+                    (wedding['pre-party']?.bandName === band.name) ||
+                    serviceCombination.party ===
+                        (wedding.party?.bandName === band.name))
         );
         return { band, serviceCombination };
     }).filter((item) => item !== undefined) as {
         band: Band;
         serviceCombination?: ServiceCombination;
     }[];
+
+    console.log(bandsServiceCombinations);
 
     const bandsServiceCombinationsErrors = bandsServiceCombinations.filter(
         (item) => item?.serviceCombination === undefined
@@ -443,17 +450,20 @@ export const calculateInvoice: (wedding: Wedding) => Invoice = (
         ceremony: undefined,
         cocktail: undefined,
         feast: undefined,
+        'pre-party': undefined,
         party: undefined,
         total: { label: 'Total', price: 0, discountedPrice: 0 },
         errors: [],
     };
 
+    console.log(wedding);
+
     let invoice: Invoice = emptyInvoice;
 
     (
-        ['ceremony', 'cocktail', 'feast', 'party'] as Exclude<
+        ['ceremony', 'cocktail', 'feast', 'pre-party', 'party'] as Exclude<
             Service,
-            'party'
+            'party' | 'pre-party'
         >[]
     ).forEach((service) => {
         const weddingService = wedding[service];
@@ -468,9 +478,15 @@ export const calculateInvoice: (wedding: Wedding) => Invoice = (
             if (weddingService.soloistName?.length) {
                 invoice[service] = [
                     ...invoice[service]!,
-                    ...[...weddingService.soloistName].map((soloistName) =>
-                        getInvoiceLineForSoloist(soloistName, service, wedding)
-                    ),
+                    ...([...weddingService.soloistName]
+                        .map((soloistName) =>
+                            getInvoiceLineForSoloist(
+                                soloistName,
+                                service,
+                                wedding
+                            )
+                        )
+                        .filter((item) => item !== undefined) as InvoiceItem[]),
                 ];
             }
             if (weddingService?.withCandles) {

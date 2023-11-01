@@ -1,6 +1,7 @@
 import { Divider } from '@mui/material';
 import { FC } from 'react';
 import { Invoice } from '../domain/types';
+import { SERVICE_LABELS } from '../domain/constants/constants';
 
 const euroFormatter = Intl.NumberFormat('es-ES', {
     style: 'currency',
@@ -52,7 +53,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                             fontWeight: '500',
                         }}
                     >
-                        Ceremonia
+                        {SERVICE_LABELS['ceremony']}
                     </h4>
                     <>
                         {invoice.ceremony.map((item) => (
@@ -77,7 +78,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                             fontWeight: '500',
                         }}
                     >
-                        Cocktail
+                        {SERVICE_LABELS['cocktail']}
                     </h4>
                     <>
                         {invoice.cocktail.map((item) => (
@@ -102,10 +103,35 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                             fontWeight: '500',
                         }}
                     >
-                        Banquete
+                        {SERVICE_LABELS['feast']}
                     </h4>
                     <>
                         {invoice.feast.map((item) => (
+                            <InvoiceLine
+                                label={item.label}
+                                price={item.price}
+                                discountedPrice={item.discountedPrice}
+                                key={item.label}
+                            />
+                        ))}
+                    </>
+                </>
+            )}
+            <Divider />
+            {invoice['pre-party'] && invoice['pre-party']?.length > 0 && (
+                <>
+                    <h4
+                        style={{
+                            fontSize: '18px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            fontWeight: '500',
+                        }}
+                    >
+                        {SERVICE_LABELS['pre-party']}
+                    </h4>
+                    <>
+                        {invoice['pre-party'].map((item) => (
                             <InvoiceLine
                                 label={item.label}
                                 price={item.price}
@@ -127,7 +153,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                             fontWeight: '500',
                         }}
                     >
-                        Fiesta
+                        {SERVICE_LABELS['party']}
                     </h4>
                     <>
                         {invoice.party.map((item) => (
