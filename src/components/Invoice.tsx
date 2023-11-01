@@ -67,7 +67,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                     </>
                 </>
             )}
-            <Divider />
+            <Divider style={{ backgroundColor: 'gray' }} />
             {invoice.cocktail && invoice.cocktail?.length > 0 && (
                 <>
                     <h4
@@ -92,7 +92,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                     </>
                 </>
             )}
-            <Divider />
+            <Divider style={{ backgroundColor: 'gray' }} />
             {invoice.feast && invoice.feast?.length > 0 && (
                 <>
                     <h4
@@ -117,7 +117,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                     </>
                 </>
             )}
-            <Divider />
+            <Divider style={{ backgroundColor: 'gray' }} />
             {invoice['pre-party'] && invoice['pre-party']?.length > 0 && (
                 <>
                     <h4
@@ -142,7 +142,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                     </>
                 </>
             )}
-            <Divider />
+            <Divider style={{ backgroundColor: 'gray' }} />
             {invoice.party && invoice.party?.length > 0 && (
                 <>
                     <h4
@@ -167,7 +167,7 @@ export const InvoicePrice: FC<Props> = ({ invoice }) => {
                     </>
                 </>
             )}
-            <Divider />
+            <Divider style={{ backgroundColor: 'gray' }} />
             <InvoiceLine
                 label="Total"
                 price={invoice.total.price}

@@ -1,4 +1,9 @@
-export type SoloistInstrument = 'voice' | 'saxo';
+export type SoloistInstrument =
+    | 'voice'
+    | 'saxo'
+    | 'chorus'
+    | 'voice-guitar'
+    | 'voice-piano';
 
 export type Service = 'ceremony' | 'cocktail' | 'feast' | 'pre-party' | 'party';
 

@@ -1,4 +1,4 @@
-import { BANDS_WITH_10_PERCENT_MORE } from './constants/bands';
+import { BANDS } from './constants/bands';
 import {
     CANDLES_PRICE,
     DISCOUNTS,
@@ -90,7 +90,7 @@ const getInvoiceLineForBand = (
     service: Service,
     wedding: Wedding
 ): InvoiceItem => {
-    const band = BANDS_WITH_10_PERCENT_MORE.find((b) => b.name === bandName)!;
+    const band = BANDS.find((b) => b.name === bandName)!;
     switch (service) {
         case 'ceremony':
             return {
@@ -294,7 +294,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         ];
     }
 
-    // If the service bandName is 'Cantante & Guitarra', the soloistName must be defined
+    // If the service bandName is 'Dúo Cantante & Guitarra', the soloistName must be defined
     const guitaristWithoutRequiredSoloist = [
         wedding.ceremony,
         wedding.cocktail,
@@ -302,18 +302,18 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
     ].filter(
         (item) =>
             item !== undefined &&
-            item.bandName === 'Cantante & Guitarra' &&
+            item.bandName === 'Dúo Cantante & Guitarra' &&
             item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (guitaristWithoutRequiredSoloist.length) {
         errors = [
             ...errors,
-            'El grupo "Cantante & Guitarra" requiere un solista.',
+            'El grupo "Dúo Cantante & Guitarra" requiere un solista.',
         ];
     }
 
-    // If the service bandName is 'Cantante & Piano', the soloistName must be defined
+    // If the service bandName is 'Dúo Cantante & Piano', the soloistName must be defined
     const pianistWithoutRequiredSoloist = [
         wedding.ceremony,
         wedding.cocktail,
@@ -321,18 +321,18 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
     ].filter(
         (item) =>
             item !== undefined &&
-            item.bandName === 'Cantante & Piano' &&
+            item.bandName === 'Dúo Cantante & Piano' &&
             item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (pianistWithoutRequiredSoloist.length) {
         errors = [
             ...errors,
-            'El grupo "Cantante & Piano" requiere un solista.',
+            'El grupo "Dúo Cantante & Piano" requiere un solista.',
         ];
     }
 
-    // If the service bandName is 'Cantante & Piano', the soloistName must be defined
+    // If the service bandName is 'Dúo Cantante & Piano', the soloistName must be defined
     const pianistAndGuitaristWithoutRequiredSoloist = [
         wedding.ceremony,
         wedding.cocktail,
@@ -340,14 +340,14 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
     ].filter(
         (item) =>
             item !== undefined &&
-            item.bandName === 'Cantante, Guitarra & Piano' &&
+            item.bandName === 'Trío Cantante & Piano & Guitarra' &&
             item.soloistName.length === 0
     ) as Wedding['ceremony'][];
 
     if (pianistAndGuitaristWithoutRequiredSoloist.length) {
         errors = [
             ...errors,
-            'El grupo "Cantante, Guitarra & Piano" requiere un solista.',
+            'El grupo "Trío Cantante & Piano & Guitarra" requiere un solista.',
         ];
     }
 
@@ -365,7 +365,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
     if (popBandWithoutRequiredSoloist.length) {
         errors = [
             ...errors,
-            'El grupo "Cantante, Guitarra & Piano" requiere un solista.',
+            'El grupo "Trío Cantante & Piano & Guitarra" requiere un solista.',
         ];
     }
 
@@ -376,7 +376,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
               serviceCombination?: ServiceCombination;
           }
         | undefined
-    )[] = BANDS_WITH_10_PERCENT_MORE.map((band) => {
+    )[] = BANDS.map((band) => {
         if (
             [
                 wedding.ceremony?.bandName,

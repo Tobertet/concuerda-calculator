@@ -56,6 +56,12 @@ const PARTY_AND_COCKTAIL_OR_FEAST: ServiceCombination[] = [
     { ceremony: false, cocktail: false, feast: false, party: true },
 ];
 
+const PARTY_AND_COCKTAIL: ServiceCombination[] = [
+    { ceremony: false, cocktail: true, feast: false, party: false },
+    { ceremony: false, cocktail: true, feast: false, party: true },
+    { ceremony: false, cocktail: false, feast: false, party: true },
+];
+
 const ONLY_COCKTAIL_OR_FEAST: ServiceCombination[] = [
     { ceremony: false, cocktail: true, feast: false, party: false },
     { ceremony: false, cocktail: false, feast: true, party: false },
@@ -67,6 +73,18 @@ const COCKTAIL_AND_FEAST: ServiceCombination[] = [
     { ceremony: false, cocktail: true, feast: true, party: false },
 ];
 
+const EITHER_CEREMONY_OR_FEAST_OR_COCKTAIL: ServiceCombination[] = [
+    { ceremony: true, cocktail: false, feast: false, party: false },
+    { ceremony: false, cocktail: true, feast: false, party: false },
+    { ceremony: false, cocktail: false, feast: true, party: false },
+];
+
+const EITHER_PARTY_OR_FEAST_OR_COCKTAIL: ServiceCombination[] = [
+    { ceremony: false, cocktail: true, feast: false, party: false },
+    { ceremony: false, cocktail: false, feast: true, party: false },
+    { ceremony: false, cocktail: false, feast: false, party: true },
+];
+
 export const SERVICES_COMBINATIONS = {
     ALL,
     ALL_EXCLUDING_PARTY,
@@ -75,5 +93,8 @@ export const SERVICES_COMBINATIONS = {
     ONLY_COCKTAIL_OR_FEAST,
     COCKTAIL_AND_FEAST,
     PARTY_AND_COCKTAIL_OR_FEAST,
+    PARTY_AND_COCKTAIL,
     CEREMONY_AND_COCKTAIL,
+    EITHER_CEREMONY_OR_FEAST_OR_COCKTAIL,
+    EITHER_PARTY_OR_FEAST_OR_COCKTAIL,
 };

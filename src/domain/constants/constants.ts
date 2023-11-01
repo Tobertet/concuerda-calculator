@@ -1,9 +1,9 @@
 import { Service } from '../types';
 
-export const CANDLES_PRICE = 600;
-export const GRAND_PIANO_PRICE = 800;
-export const CANDLES_AND_GRAND_PIANO_PRICE = 1200;
-export const FLOWERS_PRICE = 300;
+export const CANDLES_PRICE = 650;
+export const GRAND_PIANO_PRICE = 900;
+export const CANDLES_AND_GRAND_PIANO_PRICE = 1350;
+export const FLOWERS_PRICE = 350;
 
 export const DISCOUNTS = {
     DISCOUNT_TRIO_CONCUERDA_3_SERVICES: 0.75,
