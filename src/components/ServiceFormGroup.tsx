@@ -16,7 +16,7 @@ import { SERVICE_LABELS } from '../domain/constants/constants';
 type FilterType = 'soloist' | 'band';
 
 type Props = {
-    name: Exclude<Service, 'party' | 'pre-party'>;
+    name: Exclude<Service, 'party'>;
     bands: Band[];
     control: ReturnType<typeof useForm<Wedding>>['control'];
 };
@@ -39,7 +39,9 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                             s.name === field.value?.soloistName[0] &&
                             s.serviceCombinations.some(
                                 (serviceCombination) =>
-                                    serviceCombination[name] === true
+                                    serviceCombination[
+                                        name === 'pre-party' ? 'party' : name
+                                    ] === true
                             )
                     )
                 )
@@ -145,6 +147,8 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                                         return b.cocktailPrice !== undefined;
                                     case 'feast':
                                         return b.feastPrice !== undefined;
+                                    case 'pre-party':
+                                        return b.partyPrice !== undefined;
                                     default:
                                         return false;
                                 }
@@ -152,7 +156,11 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                             .filter((b) =>
                                 b.serviceCombinations.some(
                                     (serviceCombination) =>
-                                        serviceCombination[name] === true
+                                        serviceCombination[
+                                            name === 'pre-party'
+                                                ? 'party'
+                                                : name
+                                        ] === true
                                 )
                             )
                             .map((band) => ({
@@ -196,8 +204,11 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                                         .filter((soloist) =>
                                             soloist.serviceCombinations.some(
                                                 (serviceCombination) =>
-                                                    serviceCombination[name] ===
-                                                    true
+                                                    serviceCombination[
+                                                        name === 'pre-party'
+                                                            ? 'party'
+                                                            : name
+                                                    ] === true
                                             )
                                         )
                                         .map((soloist) => ({
@@ -237,6 +248,8 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                                     return item.cocktailPrice !== undefined;
                                 case 'feast':
                                     return item.feastPrice !== undefined;
+                                case 'pre-party':
+                                    return item.partyPrice !== undefined;
                                 default:
                                     return false;
                             }
@@ -244,7 +257,11 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                             .filter((item) =>
                                 item.serviceCombinations.some(
                                     (serviceCombination) =>
-                                        serviceCombination[name] === true
+                                        serviceCombination[
+                                            name === 'pre-party'
+                                                ? 'party'
+                                                : name
+                                        ] === true
                                 )
                             )
                             .map((item) => ({

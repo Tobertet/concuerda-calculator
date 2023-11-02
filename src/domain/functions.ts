@@ -5,7 +5,7 @@ import {
     FLOWERS_PRICE,
     GRAND_PIANO_PRICE,
 } from './constants/constants';
-import { SOLOISTS_WITH_10_PERCENT_MORE } from './constants/soloists';
+import { SOLOISTS } from './constants/soloists';
 import {
     Band,
     Invoice,
@@ -133,9 +133,7 @@ const getInvoiceLineForBand = (
                 ),
             };
         case 'party':
-            const soloist = SOLOISTS_WITH_10_PERCENT_MORE.find(
-                (s) => s.name === bandName
-            )!;
+            const soloist = SOLOISTS.ALL.find((s) => s.name === bandName)!;
             return {
                 label: soloist.name,
                 price: soloist.partyPrice ?? 0,
@@ -153,9 +151,7 @@ const getInvoiceLineForSoloist = (
     service: Service,
     wedding: Wedding
 ) => {
-    const soloist = SOLOISTS_WITH_10_PERCENT_MORE.find(
-        (s) => s.name === soloistName
-    )!;
+    const soloist = SOLOISTS.ALL.find((s) => s.name === soloistName)!;
     const label = `con ${soloist.name}`;
     switch (service) {
         case 'ceremony':
@@ -185,6 +181,16 @@ const getInvoiceLineForSoloist = (
                 discountedPrice: getDiscountedPriceForSoloist(
                     soloistName,
                     soloist.feastPrice ?? 0,
+                    wedding
+                ),
+            };
+        case 'pre-party':
+            return {
+                label,
+                price: soloist.partyPrice ?? 0,
+                discountedPrice: getDiscountedPriceForSoloist(
+                    soloistName,
+                    soloist.partyPrice ?? 0,
                     wedding
                 ),
             };
@@ -246,6 +252,7 @@ const getTotalPrice = (invoice: Invoice): number => {
             invoice.ceremony,
             invoice.cocktail,
             invoice.feast,
+            invoice['pre-party'],
             invoice.party,
         ].filter((item) => item !== undefined) as InvoiceItem[][]
     ).reduce(
@@ -408,8 +415,6 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         serviceCombination?: ServiceCombination;
     }[];
 
-    console.log(bandsServiceCombinations);
-
     const bandsServiceCombinationsErrors = bandsServiceCombinations.filter(
         (item) => item?.serviceCombination === undefined
     );
@@ -463,7 +468,7 @@ export const calculateInvoice: (wedding: Wedding) => Invoice = (
     (
         ['ceremony', 'cocktail', 'feast', 'pre-party', 'party'] as Exclude<
             Service,
-            'party' | 'pre-party'
+            'party'
         >[]
     ).forEach((service) => {
         const weddingService = wedding[service];
@@ -517,6 +522,8 @@ export const calculateInvoice: (wedding: Wedding) => Invoice = (
     };
 
     invoice.errors = getInvoiceErrors(wedding);
+
+    console.log(invoice);
 
     return invoice;
 };

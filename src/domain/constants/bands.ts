@@ -28,6 +28,10 @@ export const BANDS: Band[] = [
         // Exclude Laura Soprano from the list of soloists
         availableSoloists: SOLOISTS.SINGERS_AND_GUITAR.filter(
             (soloist) =>
+                soloist.name !== 'Luis Rock' &&
+                soloist.name !== 'Álvaro Indie' &&
+                soloist.name !== 'Iván Flamenco' &&
+                soloist.name !== 'Toni Pop' &&
                 soloist.name !== 'Laura Soprano' &&
                 soloist.name !== 'Elvira Soul' &&
                 soloist.name !== 'Art Gipsy' &&
@@ -62,8 +66,13 @@ export const BANDS: Band[] = [
         canHaveGrandPiano: true,
         availableSoloists: SOLOISTS.SINGERS_AND_PIANO_AND_GUITAR.filter(
             (soloist) =>
+                soloist.name !== 'Luis Rock' &&
+                soloist.name !== 'Álvaro Indie' &&
+                soloist.name !== 'Iván Flamenco' &&
+                soloist.name !== 'Toni Pop' &&
                 soloist.name !== 'Laura Soprano' &&
                 soloist.name !== 'Art Gipsy' &&
+                soloist.instrument !== 'voice-piano' &&
                 soloist.name !== 'Carmen Jazz'
         ),
     },
@@ -72,7 +81,7 @@ export const BANDS: Band[] = [
         ceremonyPrice: undefined,
         cocktailPrice: 1950,
         feastPrice: 2300,
-        partyPrice: undefined,
+        partyPrice: 2300,
         serviceCombinations:
             SERVICES_COMBINATIONS.EITHER_PARTY_OR_FEAST_OR_COCKTAIL,
         canHaveCandles: true,
@@ -122,7 +131,9 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.NONE,
+        availableSoloists: SOLOISTS.ELVIRA_AND_CARMEN.filter(
+            (soloist) => soloist.name !== 'Carmen Jazz'
+        ),
     },
     {
         name: 'Camerata Concuerda',
@@ -202,7 +213,7 @@ export const BANDS: Band[] = [
         availableSoloists: SOLOISTS.ART_AND_CARMEN_AND_DAN,
     },
     {
-        name: 'Gipsy Band (Trio)',
+        name: 'Gipsy Trio',
         ceremonyPrice: undefined,
         cocktailPrice: 2300,
         feastPrice: 2700,
@@ -221,7 +232,13 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.SAXOS,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (item) =>
+                item.name === 'Dan Crooner' ||
+                item.name === 'Fred Sax' ||
+                item.name === 'Inoidel Sax' ||
+                item.name === 'Vicent Sax'
+        ),
     },
     {
         name: 'String Band',
@@ -241,8 +258,6 @@ export const BANDS: Band[] = [
                     'Laura Soprano',
                     'Carmen Jazz',
                     'Sofía Bossa',
-                    'Fred Sax',
-                    'Inoidel Sax',
                 ].includes(soloist.name)
         ),
     },
@@ -260,6 +275,7 @@ export const BANDS: Band[] = [
                 [
                     'Maryna Pop',
                     'Natalia Pop',
+                    'Iván Flamenco',
                     'Toni Pop',
                     'Andrea Pop',
                     'Rolita',
@@ -282,12 +298,7 @@ export const BANDS: Band[] = [
         canHaveGrandPiano: false,
         availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
             (soloist) =>
-                [
-                    'Luis Rock',
-                    'Álvaro Indie',
-                    'Fred Sax',
-                    'Inoidel Sax',
-                ].includes(soloist.name)
+                ['Luis Rock', 'Fred Sax', 'Inoidel Sax'].includes(soloist.name)
         ),
     },
     {
@@ -317,19 +328,21 @@ export const BANDS: Band[] = [
         ceremonyPrice: undefined,
         cocktailPrice: 1400,
         feastPrice: 1800,
-        partyPrice: undefined,
+        partyPrice: 1800,
         serviceCombinations:
             SERVICES_COMBINATIONS.EITHER_PARTY_OR_FEAST_OR_COCKTAIL,
         canHaveCandles: true,
         canHaveGrandPiano: false,
-        availableSoloists: SOLOISTS.NONE,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (soloist) => ['Iván Flamenco'].includes(soloist.name)
+        ),
     },
     {
         name: 'Dúo Indie',
         ceremonyPrice: undefined,
         cocktailPrice: 1400,
         feastPrice: 1800,
-        partyPrice: undefined,
+        partyPrice: 1800,
         serviceCombinations:
             SERVICES_COMBINATIONS.EITHER_PARTY_OR_FEAST_OR_COCKTAIL,
         canHaveCandles: true,
@@ -381,6 +394,12 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.SAXOS,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (item) =>
+                item.name === 'Sofía Bossa' ||
+                item.name === 'Fred Sax' ||
+                item.name === 'Inoidel Sax' ||
+                item.name === 'Vicent Sax'
+        ),
     },
 ];

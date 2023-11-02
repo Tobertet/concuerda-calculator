@@ -6,19 +6,19 @@ const PRICES_BY_CATEGORY: SoloistCategoryPrices = {
         ceremonyPrice: 500,
         cocktailPrice: 600,
         feastPrice: 700,
-        partyPrice: 900,
+        partyPrice: 700,
     },
     B: {
         ceremonyPrice: 600,
         cocktailPrice: 700,
         feastPrice: 850,
-        partyPrice: 1100,
+        partyPrice: 850,
     },
     C: {
         ceremonyPrice: 750,
         cocktailPrice: 850,
         feastPrice: 950,
-        partyPrice: 1650,
+        partyPrice: 950,
     },
 };
 
@@ -40,13 +40,13 @@ export const ALL: Soloist[] = [
         name: 'Iván Flamenco',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.A,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Natalia Pop',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.A,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Elvira Soul',
@@ -71,7 +71,7 @@ export const ALL: Soloist[] = [
         name: 'Tony Funky',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.B,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Toni Pop',
@@ -101,7 +101,7 @@ export const ALL: Soloist[] = [
         name: 'Tayra',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.B,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Sofía Bossa',
@@ -113,38 +113,39 @@ export const ALL: Soloist[] = [
         name: 'Dan Crooner',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.B,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     // Categoria C
     {
         name: 'Art Gipsy',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.C,
-        serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
+        serviceCombinations: SERVICES_COMBINATIONS.PARTY_AND_COCKTAIL_OR_FEAST,
     },
     {
         name: 'Rolita',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.C,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Carmen Jazz',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.C,
-        serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
+        serviceCombinations: SERVICES_COMBINATIONS.PARTY_AND_COCKTAIL_AND_FEAST,
     },
     {
         name: 'Luis Rock',
         instrument: 'voice',
         ...PRICES_BY_CATEGORY.C,
-        serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
+        serviceCombinations: SERVICES_COMBINATIONS.ALL,
     },
     {
         name: 'Inoidel Sax',
         instrument: 'saxo',
         ...PRICES_BY_CATEGORY.C,
         serviceCombinations: SERVICES_COMBINATIONS.ALL,
+        partyPrice: 1650,
     },
     // Categoria X
     {
@@ -167,6 +168,16 @@ export const ALL: Soloist[] = [
     },
     {
         name: 'Iván Flamenco (Guitarra & Voz)',
+        instrument: 'voice-guitar',
+        serviceCombinations:
+            SERVICES_COMBINATIONS.EITHER_CEREMONY_OR_FEAST_OR_COCKTAIL,
+        ceremonyPrice: 300,
+        cocktailPrice: 300,
+        feastPrice: 300,
+        partyPrice: undefined,
+    },
+    {
+        name: 'Álvaro Indie (Guitarra & Voz)',
         instrument: 'voice-guitar',
         serviceCombinations:
             SERVICES_COMBINATIONS.EITHER_CEREMONY_OR_FEAST_OR_COCKTAIL,
@@ -208,8 +219,7 @@ export const ALL: Soloist[] = [
     {
         name: 'Rolita (Piano & Voz)',
         instrument: 'voice-piano',
-        serviceCombinations:
-            SERVICES_COMBINATIONS.EITHER_CEREMONY_OR_FEAST_OR_COCKTAIL,
+        serviceCombinations: SERVICES_COMBINATIONS.ONLY_CEREMONIES,
         ceremonyPrice: 500,
         cocktailPrice: 500,
         feastPrice: 500,
@@ -281,16 +291,3 @@ export const SOLOISTS = {
     ART_AND_CARMEN_AND_DAN,
     SAXOS,
 };
-
-// Higher the price of the soloists a 10%
-export const SOLOISTS_WITH_10_PERCENT_MORE = ALL.map((soloist) => ({
-    ...soloist,
-    ceremonyPrice: soloist.ceremonyPrice
-        ? soloist.ceremonyPrice * 1.1
-        : undefined,
-    cocktailPrice: soloist.cocktailPrice
-        ? soloist.cocktailPrice * 1.1
-        : undefined,
-    feastPrice: soloist.feastPrice ? soloist.feastPrice * 1.1 : undefined,
-    partyPrice: soloist.partyPrice ? soloist.partyPrice * 1.1 : undefined,
-}));

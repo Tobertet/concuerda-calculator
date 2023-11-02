@@ -88,18 +88,29 @@ export const App: FC = () => {
                     name="feast"
                 />
                 <Separator />
-                <PartyFormGroup
-                    service="pre-party"
+                <ServiceFormGroup
                     control={control}
                     bands={BANDS}
-                    soloists={[]}
+                    name="pre-party"
                 />
                 <Separator />
                 <PartyFormGroup
                     service="party"
                     control={control}
                     bands={[]}
-                    soloists={SOLOISTS.ALL}
+                    soloists={SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+                        (item) =>
+                            item.name !== 'Iván Flamenco' &&
+                            item.name !== 'Carmen Jazz' &&
+                            item.name !== 'Dan Crooner' &&
+                            item.name !== 'Elvira Soul' &&
+                            item.name !== 'Laura Soprano' &&
+                            item.name !== 'Álvaro Indie' &&
+                            item.name !== 'Toni Pop' &&
+                            item.name !== 'Vicent Sax' &&
+                            item.name !== 'Sofía Bossa' &&
+                            item.name !== 'Art Gipsy'
+                    )}
                 />
                 <Separator />
                 <InvoicePrice invoice={invoice} />
