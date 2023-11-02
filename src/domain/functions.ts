@@ -306,6 +306,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony,
         wedding.cocktail,
         wedding.feast,
+        wedding['pre-party'],
     ].filter(
         (item) =>
             item !== undefined &&
@@ -325,6 +326,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony,
         wedding.cocktail,
         wedding.feast,
+        wedding['pre-party'],
     ].filter(
         (item) =>
             item !== undefined &&
@@ -344,6 +346,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony,
         wedding.cocktail,
         wedding.feast,
+        wedding['pre-party'],
     ].filter(
         (item) =>
             item !== undefined &&
@@ -362,6 +365,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony,
         wedding.cocktail,
         wedding.feast,
+        wedding['pre-party'],
     ].filter(
         (item) =>
             item !== undefined &&
@@ -431,6 +435,7 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         wedding.ceremony,
         wedding.cocktail,
         wedding.feast,
+        wedding['pre-party'],
     ].filter(
         (item) =>
             item !== undefined &&
@@ -442,6 +447,46 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         errors = [
             ...errors,
             'Es necesario seleccionar un grupo para el solista seleccionado.',
+        ];
+    }
+
+    // Add error if band is Bossa Nova and soloist is not Sofia Bossa
+    const bossaNovaBandWithoutSofiaBossa = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === 'Bossa Nova Band' &&
+            item.soloistName.includes('Sofía Bossa') === false
+    ) as Wedding['ceremony'][];
+
+    if (bossaNovaBandWithoutSofiaBossa.length) {
+        errors = [
+            ...errors,
+            'El grupo "Bossa Nova Band" necesita a "Sofía Bossa" como solista.',
+        ];
+    }
+
+    // Add error if band is Crooner Band and soloist is not Dan Crooner
+    const croonerBandWithoutDanCrooner = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === 'Crooner Band' &&
+            item.soloistName.includes('Dan Crooner') === false
+    ) as Wedding['ceremony'][];
+
+    if (croonerBandWithoutDanCrooner.length) {
+        errors = [
+            ...errors,
+            'El grupo "Crooner Band" necesita a "Dan Crooner" como solista.',
         ];
     }
 

@@ -59,6 +59,7 @@ export const App: FC = () => {
                 <img
                     alt="Logo de Tu boda con velas"
                     src="/concuerda-calculator/logo.png"
+                    style={{ padding: '20%' }}
                 />
                 <h2
                     style={{
