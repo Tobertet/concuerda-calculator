@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/concuerda-calculator/static/css/main.f7815379.css",
-    "main.js": "/concuerda-calculator/static/js/main.b8428318.js",
+    "main.js": "/concuerda-calculator/static/js/main.3a32ac57.js",
     "static/js/787.91237ca2.chunk.js": "/concuerda-calculator/static/js/787.91237ca2.chunk.js",
     "index.html": "/concuerda-calculator/index.html",
     "main.f7815379.css.map": "/concuerda-calculator/static/css/main.f7815379.css.map",
-    "main.b8428318.js.map": "/concuerda-calculator/static/js/main.b8428318.js.map",
+    "main.3a32ac57.js.map": "/concuerda-calculator/static/js/main.3a32ac57.js.map",
     "787.91237ca2.chunk.js.map": "/concuerda-calculator/static/js/787.91237ca2.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f7815379.css",
-    "static/js/main.b8428318.js"
+    "static/js/main.3a32ac57.js"
   ]
 }
