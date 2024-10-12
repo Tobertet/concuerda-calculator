@@ -53,6 +53,8 @@ export const ServiceFormGroup: FC<Props> = ({ name, bands, control }) => {
                             return b.cocktailPrice !== undefined;
                         case 'feast':
                             return b.feastPrice !== undefined;
+                        case 'pre-party':
+                            return b.partyPrice !== undefined;
                         default:
                             return false;
                     }

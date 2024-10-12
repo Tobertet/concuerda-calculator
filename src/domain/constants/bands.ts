@@ -28,14 +28,11 @@ export const BANDS: Band[] = [
         // Exclude Laura Soprano from the list of soloists
         availableSoloists: SOLOISTS.SINGERS_AND_GUITAR.filter(
             (soloist) =>
-                soloist.name !== 'Luis Rock' &&
-                soloist.name !== 'Álvaro Indie' &&
-                soloist.name !== 'Iván Flamenco' &&
-                soloist.name !== 'Toni Pop' &&
                 soloist.name !== 'Laura Soprano' &&
                 soloist.name !== 'Elvira Soul' &&
+                soloist.name !== 'Elvira Soprano' &&
+                soloist.name !== 'Miriam Soprano' &&
                 soloist.name !== 'Art Gipsy' &&
-                soloist.name !== 'Carmen Jazz' &&
                 soloist.name !== 'Sofía Bossa'
         ),
     },
@@ -51,7 +48,27 @@ export const BANDS: Band[] = [
         canHaveGrandPiano: true,
         availableSoloists: SOLOISTS.SINGERS_AND_PIANO.filter(
             (soloist) =>
-                soloist.name !== 'Art Gipsy' && soloist.name !== 'Carmen Jazz'
+                soloist.name !== 'Art Gipsy' &&
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Laura Soprano' &&
+                soloist.name !== 'Elvira Soprano' &&
+                soloist.name !== 'Miriam Soprano'
+        ),
+    },
+    {
+        name: 'Dúo Soprano & Piano',
+        ceremonyPrice: 400,
+        cocktailPrice: 500,
+        feastPrice: 600,
+        partyPrice: undefined,
+        serviceCombinations: SERVICES_COMBINATIONS.ONLY_CEREMONIES,
+        canHaveCandles: true,
+        canHaveGrandPiano: true,
+        availableSoloists: SOLOISTS.SINGERS_AND_PIANO.filter(
+            (soloist) =>
+                soloist.name === 'Elvira Soprano' ||
+                soloist.name === 'Laura Soprano' ||
+                soloist.name === 'Miriam Soprano'
         ),
     },
     {
@@ -66,14 +83,12 @@ export const BANDS: Band[] = [
         canHaveGrandPiano: true,
         availableSoloists: SOLOISTS.SINGERS_AND_PIANO_AND_GUITAR.filter(
             (soloist) =>
-                soloist.name !== 'Luis Rock' &&
-                soloist.name !== 'Álvaro Indie' &&
-                soloist.name !== 'Iván Flamenco' &&
-                soloist.name !== 'Toni Pop' &&
                 soloist.name !== 'Laura Soprano' &&
                 soloist.name !== 'Art Gipsy' &&
                 soloist.instrument !== 'voice-piano' &&
-                soloist.name !== 'Carmen Jazz'
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Elvira Soprano' &&
+                soloist.name !== 'Miriam Soprano'
         ),
     },
     {
@@ -86,7 +101,7 @@ export const BANDS: Band[] = [
             SERVICES_COMBINATIONS.EITHER_PARTY_OR_FEAST_OR_COCKTAIL,
         canHaveCandles: true,
         canHaveGrandPiano: false,
-        availableSoloists: SOLOISTS.NONE,
+        availableSoloists: SOLOISTS.RAUL,
     },
     {
         name: '2Cellos',
@@ -109,7 +124,7 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.COCKTAIL_AND_FEAST,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.NONE,
+        availableSoloists: SOLOISTS.DAN_AND_SOFIA,
     },
     {
         name: 'Jazz Trio',
@@ -166,7 +181,12 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (soloist) =>
+                soloist.name !== 'Art Gipsy' &&
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Raúl Latin'
+        ),
     },
     {
         name: 'Concuerda & Co Trío',
@@ -177,7 +197,12 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
         canHaveCandles: true,
         canHaveGrandPiano: true,
-        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (soloist) =>
+                soloist.name !== 'Art Gipsy' &&
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Raúl Latin'
+        ),
     },
     {
         name: 'Concuerda & Co Cuarteto',
@@ -188,7 +213,12 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
         canHaveCandles: true,
         canHaveGrandPiano: false,
-        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (soloist) =>
+                soloist.name !== 'Art Gipsy' &&
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Raúl Latin'
+        ),
     },
     {
         name: 'Trio Concuerda',
@@ -199,7 +229,12 @@ export const BANDS: Band[] = [
         serviceCombinations: SERVICES_COMBINATIONS.ALL_EXCLUDING_PARTY,
         canHaveCandles: true,
         canHaveGrandPiano: false,
-        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE,
+        availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
+            (soloist) =>
+                soloist.name !== 'Art Gipsy' &&
+                soloist.name !== 'Carmen Jazz' &&
+                soloist.name !== 'Raúl Latin'
+        ),
     },
     {
         name: 'Gipsy Band',
@@ -258,6 +293,8 @@ export const BANDS: Band[] = [
                     'Laura Soprano',
                     'Carmen Jazz',
                     'Sofía Bossa',
+                    'Toni Pop',
+                    'Raúl Latin',
                 ].includes(soloist.name)
         ),
     },
@@ -282,8 +319,7 @@ export const BANDS: Band[] = [
                     'Tony Funky',
                     'Tayra',
                     'Andrea R&B',
-                    'Fred Sax',
-                    'Inoidel Sax',
+                    'Álvaro Indie',
                 ].includes(soloist.name)
         ),
     },
@@ -297,8 +333,7 @@ export const BANDS: Band[] = [
         canHaveCandles: true,
         canHaveGrandPiano: false,
         availableSoloists: SOLOISTS.ALL_EXCEPT_INSTRUMENTED_VOICE.filter(
-            (soloist) =>
-                ['Luis Rock', 'Fred Sax', 'Inoidel Sax'].includes(soloist.name)
+            (soloist) => ['Luis Rock', 'Álvaro Indie'].includes(soloist.name)
         ),
     },
     {
@@ -318,8 +353,6 @@ export const BANDS: Band[] = [
                     'Andrea R&B',
                     'Tayra',
                     'Natalia Pop',
-                    'Fred Sax',
-                    'Inoidel Sax',
                 ].includes(soloist.name)
         ),
     },
@@ -355,8 +388,7 @@ export const BANDS: Band[] = [
         cocktailPrice: 3500,
         feastPrice: 3500,
         partyPrice: undefined,
-        serviceCombinations:
-            SERVICES_COMBINATIONS.CEREMONY_AND_COCKTAIL_OR_FEAST,
+        serviceCombinations: SERVICES_COMBINATIONS.EITHER_CEREMONY_OR_COCKTAIL,
         canHaveCandles: true,
         canHaveGrandPiano: false,
         availableSoloists: SOLOISTS.NONE,

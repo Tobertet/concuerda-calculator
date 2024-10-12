@@ -266,6 +266,27 @@ const getTotalPrice = (invoice: Invoice): number => {
     );
 };
 
+const bandRequiresSoloist = (
+    wedding: Wedding,
+    bandName: string
+): string | undefined => {
+    const bandsWithoutSoloist = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === bandName &&
+            item.soloistName.length === 0
+    ) as Wedding['ceremony'][];
+
+    if (bandsWithoutSoloist.length) {
+        return `El grupo ${bandName} necesita un solista.`;
+    }
+};
+
 const getInvoiceErrors = (wedding: Wedding): string[] => {
     let errors: string[] = [];
 
@@ -298,85 +319,6 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
         errors = [
             ...errors,
             'No se puede contratar más de un servicio con velas.',
-        ];
-    }
-
-    // If the service bandName is 'Dúo Cantante & Guitarra', the soloistName must be defined
-    const guitaristWithoutRequiredSoloist = [
-        wedding.ceremony,
-        wedding.cocktail,
-        wedding.feast,
-        wedding['pre-party'],
-    ].filter(
-        (item) =>
-            item !== undefined &&
-            item.bandName === 'Dúo Cantante & Guitarra' &&
-            item.soloistName.length === 0
-    ) as Wedding['ceremony'][];
-
-    if (guitaristWithoutRequiredSoloist.length) {
-        errors = [
-            ...errors,
-            'El grupo "Dúo Cantante & Guitarra" requiere un solista.',
-        ];
-    }
-
-    // If the service bandName is 'Dúo Cantante & Piano', the soloistName must be defined
-    const pianistWithoutRequiredSoloist = [
-        wedding.ceremony,
-        wedding.cocktail,
-        wedding.feast,
-        wedding['pre-party'],
-    ].filter(
-        (item) =>
-            item !== undefined &&
-            item.bandName === 'Dúo Cantante & Piano' &&
-            item.soloistName.length === 0
-    ) as Wedding['ceremony'][];
-
-    if (pianistWithoutRequiredSoloist.length) {
-        errors = [
-            ...errors,
-            'El grupo "Dúo Cantante & Piano" requiere un solista.',
-        ];
-    }
-
-    // If the service bandName is 'Dúo Cantante & Piano', the soloistName must be defined
-    const pianistAndGuitaristWithoutRequiredSoloist = [
-        wedding.ceremony,
-        wedding.cocktail,
-        wedding.feast,
-        wedding['pre-party'],
-    ].filter(
-        (item) =>
-            item !== undefined &&
-            item.bandName === 'Trío Cantante & Piano & Guitarra' &&
-            item.soloistName.length === 0
-    ) as Wedding['ceremony'][];
-
-    if (pianistAndGuitaristWithoutRequiredSoloist.length) {
-        errors = [
-            ...errors,
-            'El grupo "Trío Cantante & Piano & Guitarra" requiere un solista.',
-        ];
-    }
-
-    const popBandWithoutRequiredSoloist = [
-        wedding.ceremony,
-        wedding.cocktail,
-        wedding.feast,
-        wedding['pre-party'],
-    ].filter(
-        (item) =>
-            item !== undefined &&
-            item.bandName === 'Pop Band' &&
-            item.soloistName.length === 0
-    ) as Wedding['ceremony'][];
-
-    if (popBandWithoutRequiredSoloist.length) {
-        errors = [
-            ...errors,
-            'El grupo "Trío Cantante & Piano & Guitarra" requiere un solista.',
         ];
     }
 
@@ -489,6 +431,82 @@ const getInvoiceErrors = (wedding: Wedding): string[] => {
             'El grupo "Crooner Band" necesita a "Dan Crooner" como solista.',
         ];
     }
+
+    // Add error if band is Crooner Band and soloist is not Dan Crooner
+    const duoFlamencoWithoutIvan = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === 'Dúo Flamenco' &&
+            item.soloistName.includes('Iván Flamenco') === false
+    ) as Wedding['ceremony'][];
+
+    if (duoFlamencoWithoutIvan.length) {
+        errors = [
+            ...errors,
+            'El grupo "Dúo Flamenco" necesita a "Iván Flamenco" como solista.',
+        ];
+    }
+
+    // Add error if band is Crooner Band and soloist is not Dan Crooner
+    const duoIndieWithoutAlvaro = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === 'Dúo Indie' &&
+            item.soloistName.includes('Álvaro Indie') === false
+    ) as Wedding['ceremony'][];
+
+    if (duoIndieWithoutAlvaro.length) {
+        errors = [
+            ...errors,
+            'El grupo "Dúo Indie" necesita a "Álvaro Indie" como solista.',
+        ];
+    }
+
+    // Add error if band is Crooner Band and soloist is not Dan Crooner
+    const latinQuartetWithoutRaul = [
+        wedding.ceremony,
+        wedding.cocktail,
+        wedding.feast,
+        wedding['pre-party'],
+    ].filter(
+        (item) =>
+            item !== undefined &&
+            item.bandName === 'Latin Quartet' &&
+            item.soloistName.includes('Raúl Latin') === false
+    ) as Wedding['ceremony'][];
+
+    if (latinQuartetWithoutRaul.length) {
+        errors = [
+            ...errors,
+            'El grupo "Latin Quartet" necesita a "Raúl Latin" como solista.',
+        ];
+    }
+
+    const errorsForBandsWithoutSoloist = [
+        bandRequiresSoloist(wedding, 'Dúo Saxo & Piano'),
+        bandRequiresSoloist(wedding, 'Dúo Cantante & Piano'),
+        bandRequiresSoloist(wedding, 'Dúo Cantante & Piano & Guitarra'),
+        bandRequiresSoloist(wedding, 'Dúo Cantante & Guitarra'),
+        bandRequiresSoloist(wedding, 'String Band'),
+        bandRequiresSoloist(wedding, 'Pop Band'),
+        bandRequiresSoloist(wedding, 'Rock Band'),
+        bandRequiresSoloist(wedding, 'Funky Band'),
+        bandRequiresSoloist(wedding, 'Gipsy Band'),
+        bandRequiresSoloist(wedding, 'Jazz Quartet'),
+        bandRequiresSoloist(wedding, 'Saxo Lounge'),
+    ].filter((item) => !!item) as string[];
+
+    errors = [...errors, ...errorsForBandsWithoutSoloist];
 
     return errors;
 };

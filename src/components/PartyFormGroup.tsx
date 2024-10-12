@@ -1,6 +1,4 @@
-import { Checkbox, FormControlLabel } from '@mui/material';
 import { FC } from 'react';
-import { theme } from '../theme';
 import { Selector } from './Selector';
 import { useController, useForm } from 'react-hook-form';
 import { Band, Service, Soloist, Wedding } from '../domain/types';
@@ -58,7 +56,7 @@ export const PartyFormGroup: FC<Props> = ({
                     }))}
                 value={field.value?.bandName}
             />
-            <FormControlLabel
+            {/* <FormControlLabel
                 control={
                     <Checkbox
                         disabled={!field.value?.bandName}
@@ -74,7 +72,7 @@ export const PartyFormGroup: FC<Props> = ({
                 }
                 label="Con velas"
                 style={{ color: 'white', padding: '0 10%' }}
-            />
+            /> */}
         </>
     );
 };
